@@ -2,6 +2,7 @@
 
 @import url("../css/reset.css");
 @import url("../components/header.css");
+@import url("../css/basket.css");
 
 .category-container {
   margin: 0px auto;
