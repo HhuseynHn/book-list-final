@@ -4,8 +4,10 @@ import { books } from "../mook/book-list-data.js";
 import { unicCategoryList } from "../utils/unicList.js";
 import {
   addbascet,
+  addButton,
   basketRender,
   basketShow,
+  clear,
   removeBascet,
   updateData,
 } from "../utils/basket.js";
@@ -72,3 +74,5 @@ basketShow();
 basketRender();
 removeBascet();
 updateData();
+clear();
+addButton();

@@ -33,7 +33,6 @@ export function addbascet() {
 
   addToCard.forEach((e) => {
     e.addEventListener("click", () => {
-      console.log("Add");
       let count = Number(basketCount.innerHTML) + 1;
       let getDataId = e.getAttribute("data-id");
       let cardImage = books.find((e) => {
@@ -69,12 +68,13 @@ export function addbascet() {
 //--------------------------------
 // ------ Basket show togle ------------
 export function basketShow() {
-  let basket = document.querySelector(".fa-basket-shopping");
   let basketContainer = document.querySelector(".basket-container");
+  let basket = document.querySelector(".fa-basket-shopping");
   basket.addEventListener("click", () => {
     basketContainer.classList.toggle("visible");
   });
 }
+
 //---------------------------------
 
 //-------------- Basket details -----------
@@ -87,7 +87,11 @@ export function basketRender() {
               <img src="${e.img}" alt="" />
               <span>${e.countInner}</span>
               <span>${e.priceCard}$</span>
-              <button class="basket-button" data-id=${e.id}>x</button>
+              <div class="button-flex">
+              <button class="basket-button" data-id=${e.id}>-</button>    
+              <button class="basket-adds" data-id=${e.id}>+</button>
+              
+              </div>
             </li>
             `;
 
@@ -96,7 +100,6 @@ export function basketRender() {
   basketContent.innerHTML = cardBascetAry.join("");
 }
 //---------------------------------
-
 //------------- Remove basket -----
 
 export function removeBascet() {
@@ -135,3 +138,42 @@ export function removeBascet() {
 //---------------------------------
 
 //----------- when you are filtir category, basket add can't work
+export function clear() {
+  let clear = document.querySelector(".clear");
+
+  clear.addEventListener("click", () => {
+    cardBasket.data = [];
+    basketRender();
+    updateData();
+  });
+}
+
+export function addButton() {
+  let buttonIncrese = document.querySelectorAll(".basket-adds");
+  buttonIncrese.forEach((button) => {
+    console.log(button);
+    button.addEventListener("click", () => {
+      let count = Number(basketCount.innerHTML) + 1;
+      let getDataId = e.getAttribute("data-id");
+      basketCount.innerHTML = count;
+      let idControl = cardBasket.data.map((e) => Number(e.id));
+      if (!idControl.includes(Number(getDataId))) {
+        cardBasket.data.push({
+          id: getDataId,
+          countInner: 1,
+          img: cardImage,
+          priceCard: cardPrice,
+          amount: cardPrice * 1,
+        });
+      } else {
+        let findData = cardBasket.data.find((e) => e.id == getDataId);
+        findData.countInner += 1;
+        findData.amount = findData.countInner * cardPrice;
+      }
+      addbascet();
+      basketRender();
+      removeBascet();
+      updateData();
+    });
+  });
+}
